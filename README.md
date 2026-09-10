@@ -18,6 +18,12 @@ Em ambientes corporativos, profissionais gastam tempo produzindo e revisando e-m
 
 O CorpAI foi criado para apoiar esse processo sem eliminar a supervisão humana em situações sensíveis.
 
+## Solução
+
+O CorpAI centraliza a geração de comunicações em um workflow automatizado que combina **classificação, redação, revisão, decisão de risco e validação humana**.
+
+A solução busca reduzir retrabalho, padronizar comunicações e manter uma camada de controle humano quando o conteúdo exige maior responsabilidade.
+
 ## Como funciona
 
 O usuário informa:
@@ -84,6 +90,30 @@ O responsável pode:
 
 A etapa humana evita que o modelo tenha autonomia total em comunicações que exigem julgamento ou responsabilidade adicional.
 
+## Cenários validados
+
+O workflow foi testado ponta a ponta e validado nos seguintes comportamentos:
+
+1. **comunicação interna de baixo risco** → classificação → redação → revisão → aprovação automática;
+2. **comunicação externa ou de maior risco** → classificação → redação → revisão → Human in the Loop → aprovação humana;
+3. **comunicação externa ou de maior risco** → classificação → redação → revisão → Human in the Loop → rejeição e bloqueio.
+
+Também foram revisados os nomes dos nodes, conexões do workflow, prompts, mensagens finais e saídas de cada caminho.
+
+## Evidências visuais
+
+As evidências de execução serão adicionadas nesta seção após a captura final dos testes.
+
+Está prevista a inclusão de:
+
+- visão completa do workflow no n8n;
+- formulário de entrada;
+- exemplo de solicitação de baixo risco;
+- exemplo de classificação e revisão;
+- etapa de Human in the Loop;
+- resultado de aprovação humana;
+- resultado de rejeição e bloqueio.
+
 ## Tecnologias
 
 | Tecnologia | Uso |
@@ -140,13 +170,18 @@ corpai-assistente-corporativo-ia/
 
 ## Validação
 
-O projeto foi validado em três comportamentos principais:
+Os cenários de teste estão documentados em [`examples/casos-de-teste.md`](examples/casos-de-teste.md) e o registro de validação está em [`docs/validacao.md`](docs/validacao.md).
 
-1. **comunicação interna de baixo risco** → aprovação automática;
-2. **comunicação externa** → revisão humana → aprovação;
-3. **comunicação externa** → revisão humana → rejeição e bloqueio.
+A validação funcional contempla:
 
-Veja os cenários em [`examples/casos-de-teste.md`](examples/casos-de-teste.md) e o registro de validação em [`docs/validacao.md`](docs/validacao.md).
+- entrada estruturada pelo formulário;
+- classificação da solicitação;
+- geração da comunicação;
+- revisão automática;
+- decisão sobre necessidade de supervisão humana;
+- aprovação automática para cenários adequados;
+- aprovação humana;
+- rejeição humana e bloqueio do fluxo.
 
 ## Segurança, privacidade e LGPD
 
@@ -173,6 +208,8 @@ Veja [`docs/seguranca-lgpd.md`](docs/seguranca-lgpd.md).
 ## Principais aprendizados
 
 O projeto demonstra, na prática, que IA Generativa pode ser incorporada a processos além de um chatbot isolado. O foco está em **orquestração de etapas, engenharia de prompts, guardrails, classificação de risco e supervisão humana**.
+
+Também evidencia a importância de combinar automação com validação, especialmente em processos nos quais a qualidade da comunicação e o nível de risco variam conforme o contexto.
 
 ## Autor
 
