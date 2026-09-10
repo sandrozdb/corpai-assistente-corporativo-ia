@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/cover.svg" alt="CorpAI — Assistente Corporativo Inteligente" width="100%">
+</p>
+
 # CorpAI — Assistente Corporativo Inteligente
 
 Assistente corporativo com IA Generativa e automação em **n8n + Google Gemini**, criado para transformar solicitações estruturadas em comunicações profissionais, consistentes e adequadas ao contexto.
@@ -97,6 +101,8 @@ corpai-assistente-corporativo-ia/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
+├── assets/
+│   └── cover.svg
 ├── workflow/
 │   └── corpai-workflow.json
 ├── prompts/
