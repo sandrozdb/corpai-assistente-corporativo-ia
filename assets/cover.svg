@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+  <title id="title">CorpAI — Assistente Corporativo Inteligente</title>
+  <desc id="desc">Capa do projeto CorpAI com n8n, Gemini e Human in the Loop</desc>
+  <defs>
+    <linearGradient id="bg" x1="40" y1="20" x2="1240" y2="340" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#071A2E"/>
+      <stop offset="0.55" stop-color="#0B3558"/>
+      <stop offset="1" stop-color="#0B6A78"/>
+    </linearGradient>
+    <linearGradient id="chipN8N" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FF8A4C"/>
+      <stop offset="1" stop-color="#F45D2F"/>
+    </linearGradient>
+    <linearGradient id="chipGemini" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#5B8CFF"/>
+      <stop offset="1" stop-color="#3B5CCC"/>
+    </linearGradient>
+    <linearGradient id="chipHitl" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#18C8C8"/>
+      <stop offset="1" stop-color="#0B8C9D"/>
+    </linearGradient>
+    <filter id="shadow" x="760" y="55" width="430" height="250" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#021522" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect x="20" y="20" width="1240" height="320" rx="28" fill="url(#bg)"/>
+  <circle cx="1135" cy="65" r="180" fill="#38BDF8" opacity="0.10"/>
+  <circle cx="1050" cy="330" r="165" fill="#34D399" opacity="0.08"/>
+  <circle cx="1260" cy="270" r="130" fill="#67E8F9" opacity="0.07"/>
+
+  <text x="88" y="112" fill="#67E8F9" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">IA GENERATIVA • AUTOMAÇÃO • HUMAN IN THE LOOP</text>
+  <text x="88" y="184" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700">CorpAI</text>
+  <text x="88" y="236" fill="#E6F3FF" font-family="Arial, Helvetica, sans-serif" font-size="27">Assistente Corporativo Inteligente com n8n e Gemini</text>
+
+  <g>
+    <rect x="88" y="274" width="88" height="40" rx="20" fill="url(#chipN8N)"/>
+    <text x="132" y="300" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">n8n</text>
+    <rect x="188" y="274" width="104" height="40" rx="20" fill="url(#chipGemini)"/>
+    <text x="240" y="300" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">GEMINI</text>
+    <rect x="304" y="274" width="130" height="40" rx="20" fill="url(#chipHitl)"/>
+    <text x="369" y="300" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">REVISÃO HUMANA</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="805" y="82" width="320" height="196" rx="28" fill="#0A2239" stroke="#4CC9E8" stroke-width="2"/>
+
+    <rect x="833" y="112" width="72" height="54" rx="14" fill="#123F64"/>
+    <text x="869" y="143" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">CLASSIFICAR</text>
+
+    <path d="M911 139H945" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
+    <path d="M936 131L946 139L936 147" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="952" y="112" width="72" height="54" rx="14" fill="#164E63"/>
+    <text x="988" y="143" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">REDIGIR</text>
+
+    <path d="M1030 139H1064" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1055 131L1065 139L1055 147" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="1070" y="112" width="72" height="54" rx="14" fill="#155E75"/>
+    <text x="1106" y="143" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">REVISAR</text>
+
+    <path d="M988 167V198" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
+    <path d="M980 189L988 199L996 189" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="911" y="202" width="156" height="46" rx="18" fill="#0F766E"/>
+    <text x="989" y="230" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">APROVAÇÃO HUMANA</text>
+  </g>
+</svg>
