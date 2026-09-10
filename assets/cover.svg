@@ -24,7 +24,7 @@
       <stop stop-color="#18C8C8"/>
       <stop offset="1" stop-color="#0B8C9D"/>
     </linearGradient>
-    <filter id="shadow" x="760" y="45" width="450" height="275" filterUnits="userSpaceOnUse">
+    <filter id="shadow" x="720" y="40" width="520" height="290" filterUnits="userSpaceOnUse">
       <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#021522" flood-opacity="0.28"/>
     </filter>
   </defs>
@@ -53,27 +53,27 @@
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="790" y="74" width="400" height="214" rx="28" fill="#0A2239" stroke="#4CC9E8" stroke-width="2"/>
+    <rect x="750" y="72" width="470" height="220" rx="28" fill="#0A2239" stroke="#4CC9E8" stroke-width="2"/>
 
-    <rect x="816" y="106" width="104" height="58" rx="14" fill="#123F64"/>
-    <text x="868" y="141" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700">CLASSIFICAR</text>
+    <rect x="780" y="108" width="120" height="60" rx="14" fill="#123F64"/>
+    <text x="840" y="143" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" textLength="76" lengthAdjust="spacingAndGlyphs">CLASSIFICAR</text>
 
-    <path d="M928 135H956" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
-    <path d="M947 127L957 135L947 143" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M910 138H938" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
+    <path d="M929 130L939 138L929 146" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <rect x="964" y="106" width="92" height="58" rx="14" fill="#164E63"/>
-    <text x="1010" y="141" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700">REDIGIR</text>
+    <rect x="946" y="108" width="104" height="60" rx="14" fill="#164E63"/>
+    <text x="998" y="143" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" textLength="48" lengthAdjust="spacingAndGlyphs">REDIGIR</text>
 
-    <path d="M1064 135H1092" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
-    <path d="M1083 127L1093 135L1083 143" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1060 138H1088" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1079 130L1089 138L1079 146" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <rect x="1100" y="106" width="68" height="58" rx="14" fill="#155E75"/>
-    <text x="1134" y="141" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700">REVISAR</text>
+    <rect x="1096" y="108" width="96" height="60" rx="14" fill="#155E75"/>
+    <text x="1144" y="143" text-anchor="middle" fill="#DFF8FF" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" textLength="48" lengthAdjust="spacingAndGlyphs">REVISAR</text>
 
-    <path d="M1010 166V201" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
-    <path d="M1002 192L1010 202L1018 192" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M998 170V201" stroke="#67E8F9" stroke-width="4" stroke-linecap="round"/>
+    <path d="M990 192L998 202L1006 192" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <rect x="921" y="207" width="178" height="48" rx="20" fill="#0F766E"/>
-    <text x="1010" y="236" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">APROVAÇÃO HUMANA</text>
+    <rect x="905" y="208" width="186" height="50" rx="20" fill="#0F766E"/>
+    <text x="998" y="238" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" textLength="130" lengthAdjust="spacingAndGlyphs">APROVAÇÃO HUMANA</text>
   </g>
 </svg>
