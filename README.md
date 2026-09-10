@@ -4,6 +4,8 @@ Assistente corporativo com IA Generativa e automação em **n8n + Google Gemini*
 
 O projeto utiliza uma arquitetura em múltiplas etapas: a solicitação é **classificada**, a comunicação é **redigida**, o conteúdo é **revisado** e, quando necessário, segue para **aprovação humana (Human in the Loop)** antes de ser liberado.
 
+> **Status:** MVP funcional e validado em cenários de aprovação automática, aprovação humana e rejeição humana.
+
 > Projeto acadêmico desenvolvido na disciplina **Fundamentos de IA com Foco em IA Generativa**.
 
 ## Problema
@@ -23,6 +25,8 @@ O usuário informa:
 - informações principais;
 - tom desejado.
 
+A partir desses dados, o workflow classifica a solicitação, produz a comunicação, revisa o conteúdo e decide se é necessária intervenção humana.
+
 ```mermaid
 flowchart LR
     A[Formulário] --> B[Classificador]
@@ -36,20 +40,34 @@ flowchart LR
     H -- Rejeitar --> J[Bloqueado]
 ```
 
-## Workflow
+## Arquitetura visual
 
-![Workflow do CorpAI](docs/workflow.png)
+![Arquitetura do CorpAI](docs/workflow.svg)
 
 ## Camadas de IA
 
 ### 1. Classificador
-Analisa a solicitação e retorna tipo da comunicação, nível de risco, necessidade de revisão humana e justificativa.
+
+Analisa a solicitação e retorna:
+
+- tipo da comunicação;
+- nível de risco;
+- necessidade de revisão humana;
+- justificativa da decisão.
+
+Prompt completo: [`prompts/classificador.md`](prompts/classificador.md)
 
 ### 2. Redator
+
 Produz a comunicação de acordo com objetivo, público, canal e tom, seguindo regras para não inventar nomes, datas, valores, prazos, responsáveis ou justificativas.
 
+Prompt completo: [`prompts/redator.md`](prompts/redator.md)
+
 ### 3. Revisor
+
 Compara a resposta com os dados originais, procura possíveis alucinações, valida formato, tom e assinatura e decide se a comunicação pode seguir automaticamente ou se precisa de supervisão humana.
+
+Prompt completo: [`prompts/revisor.md`](prompts/revisor.md)
 
 ## Human in the Loop
 
@@ -59,6 +77,8 @@ O responsável pode:
 
 - **APROVAR** — a comunicação é liberada;
 - **REJEITAR** — a comunicação é bloqueada.
+
+A etapa humana evita que o modelo tenha autonomia total em comunicações que exigem julgamento ou responsabilidade adicional.
 
 ## Tecnologias
 
@@ -70,7 +90,7 @@ O responsável pode:
 | Prompt Engineering | Papéis, regras e restrições |
 | Human in the Loop | Supervisão de comunicações sensíveis |
 
-## Estrutura
+## Estrutura do repositório
 
 ```text
 corpai-assistente-corporativo-ia/
@@ -88,34 +108,49 @@ corpai-assistente-corporativo-ia/
 └── docs/
     ├── arquitetura.md
     ├── seguranca-lgpd.md
-    └── workflow.png
+    ├── validacao.md
+    └── workflow.svg
 ```
 
 ## Como executar
 
+### Pré-requisitos
+
+- Docker Desktop;
+- n8n Community Edition;
+- chave de API do Google Gemini.
+
+### Passos
+
 1. Rode o n8n Community Edition.
-2. Importe `workflow/corpai-workflow.json`.
+2. Importe [`workflow/corpai-workflow.json`](workflow/corpai-workflow.json).
 3. Configure sua credencial do Google Gemini nos três nodes de modelo.
 4. Confirme um modelo Gemini disponível na sua conta.
 5. Execute o `Formulario CorpAI`.
 6. Preencha os campos e envie.
 7. Analise o caminho escolhido pelo workflow.
 
-> O workflow público não contém API Keys nem credenciais pessoais.
+> O workflow público foi sanitizado e não contém API Keys, referências de credenciais locais, IDs da instância ou IDs de webhook do ambiente de desenvolvimento.
 
-## Casos de teste
+## Validação
 
 O projeto foi validado em três comportamentos principais:
 
-1. comunicação interna de baixo risco → aprovação automática;
-2. comunicação externa → revisão humana → aprovação;
-3. comunicação externa → revisão humana → rejeição.
+1. **comunicação interna de baixo risco** → aprovação automática;
+2. **comunicação externa** → revisão humana → aprovação;
+3. **comunicação externa** → revisão humana → rejeição e bloqueio.
 
-Veja [`examples/casos-de-teste.md`](examples/casos-de-teste.md).
+Veja os cenários em [`examples/casos-de-teste.md`](examples/casos-de-teste.md) e o registro de validação em [`docs/validacao.md`](docs/validacao.md).
 
 ## Segurança, privacidade e LGPD
 
-O protótipo aplica minimização de dados, regras contra invenção de informações, revisão automática e supervisão humana em cenários de maior risco.
+O protótipo aplica alguns princípios importantes:
+
+- minimização de dados;
+- regras explícitas contra invenção de informações;
+- revisão automática do conteúdo gerado;
+- supervisão humana em cenários de maior risco;
+- não inclusão de credenciais no repositório público.
 
 Em produção, ainda seriam necessários controles adicionais de autenticação, autorização, retenção de dados, logs, políticas de acesso e avaliação jurídica/organizacional relacionada à LGPD.
 
@@ -129,6 +164,10 @@ Veja [`docs/seguranca-lgpd.md`](docs/seguranca-lgpd.md).
 - A versão acadêmica é executada localmente e não foi projetada como serviço corporativo de produção.
 - Disponibilidade e desempenho dependem do modelo Gemini utilizado.
 
+## Principais aprendizados
+
+O projeto demonstra, na prática, que IA Generativa pode ser incorporada a processos além de um chatbot isolado. O foco está em **orquestração de etapas, engenharia de prompts, guardrails, classificação de risco e supervisão humana**.
+
 ## Autor
 
 **Sandro Ferreira**
@@ -137,4 +176,4 @@ Estudante de Engenharia da Computação e Inteligência Artificial e Automação
 
 ## Licença
 
-MIT.
+Distribuído sob a licença MIT. Consulte [`LICENSE`](LICENSE).
