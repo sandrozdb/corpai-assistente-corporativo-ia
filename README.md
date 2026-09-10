@@ -12,19 +12,53 @@ O projeto utiliza uma arquitetura em múltiplas etapas: a solicitação é **cla
 
 > Projeto acadêmico desenvolvido na disciplina **Fundamentos de IA com Foco em IA Generativa**.
 
-## Problema
+## Contextualização do problema
 
-Em ambientes corporativos, profissionais gastam tempo produzindo e revisando e-mails, comunicados, mensagens internas e resumos de reunião. Além do esforço repetitivo, diferentes estilos de escrita podem gerar mensagens longas, inconsistentes ou inadequadas ao público e ao canal.
+Em ambientes corporativos, profissionais gastam tempo produzindo e revisando e-mails, comunicados, mensagens internas e resumos de reunião. Além do esforço repetitivo, diferentes estilos de escrita podem gerar mensagens longas, pouco padronizadas, inconsistentes no tom ou inadequadas ao público e ao canal.
 
-O CorpAI foi criado para apoiar esse processo sem eliminar a supervisão humana em situações sensíveis.
+O desafio proposto pela atividade é demonstrar que IA Generativa pode ser incorporada a uma solução funcional de automação, e não utilizada apenas como um chatbot isolado.
 
-## Solução
+## Solução proposta
 
-O CorpAI centraliza a geração de comunicações em um workflow automatizado que combina **classificação, redação, revisão, decisão de risco e validação humana**.
+O CorpAI centraliza a geração de comunicações em um workflow automatizado que combina **entrada estruturada, classificação, redação, revisão, decisão de risco e validação humana**.
 
-A solução busca reduzir retrabalho, padronizar comunicações e manter uma camada de controle humano quando o conteúdo exige maior responsabilidade.
+A proposta é reduzir retrabalho, padronizar comunicações e manter uma camada de controle humano quando o conteúdo exige maior responsabilidade. O usuário fornece o contexto da comunicação e a solução interpreta esses dados para gerar uma saída adequada ao objetivo, ao público, ao canal e ao tom informado.
 
-## Como funciona
+## Modelo de IA utilizado e justificativa
+
+O projeto utiliza **Google Gemini** como modelo de linguagem nas etapas de classificação, redação e revisão.
+
+A escolha foi feita porque o Gemini pode ser integrado ao workflow do n8n, permitindo que o modelo faça parte de uma automação completa em vez de funcionar apenas como uma ferramenta de conversa separada. Isso possibilita estruturar diferentes papéis para a IA, reutilizar instruções específicas em cada etapa e encaminhar o resultado automaticamente para outras decisões do fluxo.
+
+No CorpAI, o mesmo modelo é utilizado com responsabilidades diferentes:
+
+- **Classificador:** interpreta a solicitação e identifica tipo, risco e necessidade de revisão humana;
+- **Redator:** cria a comunicação usando somente os dados fornecidos pelo usuário;
+- **Revisor:** compara a resposta com os dados originais, procura inconsistências e avalia se o conteúdo pode seguir automaticamente.
+
+## Estratégia de prompts e instruções
+
+A estratégia adotada divide a tarefa em prompts especializados, evitando concentrar toda a responsabilidade em uma única solicitação ao LLM.
+
+Os prompts utilizam:
+
+- definição explícita do papel de cada etapa;
+- entrada estruturada com os dados originais do usuário;
+- regras para impedir invenção de nomes, datas, valores, prazos, responsáveis ou justificativas;
+- formato de saída esperado para facilitar o uso do resultado nas etapas seguintes;
+- critérios de classificação de risco;
+- instruções para encaminhamento à supervisão humana quando necessário;
+- revisão da resposta em relação às informações originais.
+
+Essa separação busca aumentar consistência, rastreabilidade e controle sobre o comportamento do assistente.
+
+Prompts completos:
+
+- [`prompts/classificador.md`](prompts/classificador.md)
+- [`prompts/redator.md`](prompts/redator.md)
+- [`prompts/revisor.md`](prompts/revisor.md)
+
+## Entrada estruturada
 
 O usuário informa:
 
@@ -35,7 +69,19 @@ O usuário informa:
 - informações principais;
 - tom desejado.
 
-A partir desses dados, o workflow classifica a solicitação, produz a comunicação, revisa o conteúdo e decide se é necessária intervenção humana.
+Esses campos fornecem o contexto utilizado pela IA e ajudam a reduzir respostas genéricas ou desconectadas da solicitação original.
+
+## Fluxo de funcionamento
+
+A partir dos dados enviados pelo formulário, o workflow segue as seguintes etapas:
+
+1. recebe a solicitação estruturada;
+2. classifica o tipo da comunicação e o nível de risco;
+3. gera a comunicação de acordo com os dados informados;
+4. revisa o conteúdo gerado;
+5. decide se a comunicação pode seguir automaticamente ou se precisa de revisão humana;
+6. em casos sensíveis, encaminha para Human in the Loop;
+7. após a decisão, libera ou bloqueia a comunicação.
 
 ```mermaid
 flowchart LR
@@ -65,19 +111,13 @@ Analisa a solicitação e retorna:
 - necessidade de revisão humana;
 - justificativa da decisão.
 
-Prompt completo: [`prompts/classificador.md`](prompts/classificador.md)
-
 ### 2. Redator
 
 Produz a comunicação de acordo com objetivo, público, canal e tom, seguindo regras para não inventar nomes, datas, valores, prazos, responsáveis ou justificativas.
 
-Prompt completo: [`prompts/redator.md`](prompts/redator.md)
-
 ### 3. Revisor
 
 Compara a resposta com os dados originais, procura possíveis alucinações, valida formato, tom e assinatura e decide se a comunicação pode seguir automaticamente ou se precisa de supervisão humana.
-
-Prompt completo: [`prompts/revisor.md`](prompts/revisor.md)
 
 ## Human in the Loop
 
@@ -89,6 +129,24 @@ O responsável pode:
 - **REJEITAR** — a comunicação é bloqueada.
 
 A etapa humana evita que o modelo tenha autonomia total em comunicações que exigem julgamento ou responsabilidade adicional.
+
+## Benefícios da solução
+
+O protótipo demonstra benefícios como:
+
+- redução do tempo gasto na redação e revisão de comunicações repetitivas;
+- maior padronização de linguagem e tom;
+- adaptação do conteúdo ao público e ao canal informado;
+- separação de responsabilidades entre classificação, geração e revisão;
+- redução de retrabalho;
+- inserção de supervisão humana em situações de maior risco;
+- possibilidade de expansão futura para outros canais e integrações corporativas.
+
+## Principal ganho proporcionado
+
+O principal ganho do CorpAI é transformar uma tarefa repetitiva de comunicação em um processo estruturado e automatizado, mantendo controle humano nos pontos em que a decisão não deve ficar totalmente sob responsabilidade do modelo.
+
+Assim, a solução busca equilibrar **agilidade, padronização e responsabilidade no uso de IA Generativa**.
 
 ## Cenários validados
 
@@ -114,7 +172,7 @@ Está prevista a inclusão de:
 - resultado de aprovação humana;
 - resultado de rejeição e bloqueio.
 
-## Tecnologias
+## Tecnologias e ferramentas utilizadas
 
 | Tecnologia | Uso |
 |---|---|
@@ -168,7 +226,15 @@ corpai-assistente-corporativo-ia/
 
 > O workflow público foi sanitizado e não contém API Keys, referências de credenciais locais, IDs da instância ou IDs de webhook do ambiente de desenvolvimento.
 
-## Validação
+## Link da solução
+
+O protótipo foi desenvolvido e executado localmente no **n8n Community Edition**. Por esse motivo, no estado atual, não há um link público permanente da aplicação em execução.
+
+O workflow está disponível neste repositório para importação e execução local:
+
+[`workflow/corpai-workflow.json`](workflow/corpai-workflow.json)
+
+## Validação funcional
 
 Os cenários de teste estão documentados em [`examples/casos-de-teste.md`](examples/casos-de-teste.md) e o registro de validação está em [`docs/validacao.md`](docs/validacao.md).
 
@@ -183,33 +249,74 @@ A validação funcional contempla:
 - aprovação humana;
 - rejeição humana e bloqueio do fluxo.
 
-## Segurança, privacidade e LGPD
+## Riscos, privacidade, LGPD e uso responsável
 
-O protótipo aplica alguns princípios importantes:
+O projeto considera que a adoção de IA Generativa em processos corporativos envolve riscos que precisam ser avaliados.
 
-- minimização de dados;
-- regras explícitas contra invenção de informações;
-- revisão automática do conteúdo gerado;
-- supervisão humana em cenários de maior risco;
-- não inclusão de credenciais no repositório público.
+### Privacidade e LGPD
 
-Em produção, ainda seriam necessários controles adicionais de autenticação, autorização, retenção de dados, logs, políticas de acesso e avaliação jurídica/organizacional relacionada à LGPD.
+O usuário deve inserir apenas informações necessárias para a geração da comunicação. Em um ambiente corporativo real, seria necessário definir políticas de tratamento, retenção e acesso aos dados, além de avaliar a base legal aplicável ao tratamento de dados pessoais.
 
-Veja [`docs/seguranca-lgpd.md`](docs/seguranca-lgpd.md).
+O protótipo aplica o princípio de minimização de dados e não inclui credenciais no repositório público.
+
+### Alucinações
+
+Modelos generativos podem produzir informações incorretas ou adicionar detalhes que não estavam presentes na entrada. Para reduzir esse risco, os prompts determinam que o modelo utilize somente os dados fornecidos, e o resultado passa por uma etapa de revisão antes da liberação.
+
+### Vieses
+
+As respostas do modelo podem refletir vieses presentes nos dados de treinamento ou interpretar de maneira inadequada determinados contextos, públicos ou tons de comunicação. Por isso, respostas sensíveis não devem ser tratadas como decisões definitivas e podem exigir revisão humana.
+
+### Segurança da informação
+
+Informações confidenciais, credenciais, dados sensíveis ou conteúdos críticos não devem ser expostos desnecessariamente ao modelo. Em uma implantação real, seriam necessários controles de autenticação, autorização, logs, segregação de acesso e políticas corporativas para uso de IA.
+
+### Supervisão humana
+
+O Human in the Loop é utilizado justamente para limitar a autonomia da IA nos casos em que uma comunicação externa, sensível ou de maior risco exige julgamento humano.
+
+Veja também [`docs/seguranca-lgpd.md`](docs/seguranca-lgpd.md).
 
 ## Limitações
 
 - Modelos generativos podem produzir respostas incorretas mesmo com prompts restritivos.
 - A classificação de risco depende de regras e interpretação do LLM.
+- O modelo pode reproduzir vieses ou interpretar incorretamente determinados contextos.
 - O protótipo não substitui validação jurídica, de compliance ou de segurança.
 - A versão acadêmica é executada localmente e não foi projetada como serviço corporativo de produção.
 - Disponibilidade e desempenho dependem do modelo Gemini utilizado.
+- O workflow não possui, no estado atual, um ambiente público permanente para demonstração por link.
 
 ## Principais aprendizados
 
 O projeto demonstra, na prática, que IA Generativa pode ser incorporada a processos além de um chatbot isolado. O foco está em **orquestração de etapas, engenharia de prompts, guardrails, classificação de risco e supervisão humana**.
 
 Também evidencia a importância de combinar automação com validação, especialmente em processos nos quais a qualidade da comunicação e o nível de risco variam conforme o contexto.
+
+## Aderência aos requisitos da atividade
+
+| Requisito | Implementação no CorpAI |
+|---|---|
+| Entrada estruturada de informações | Formulário com remetente, objetivo, público, canal, informações principais e tom |
+| Uso de LLM | Google Gemini |
+| Prompt/instruções definidos | Prompts separados para Classificador, Redator e Revisor |
+| Fluxo automatizado/agente | Workflow no n8n |
+| Saída contextualizada | Comunicação gerada de acordo com objetivo, público, canal e tom |
+| Supervisão humana | Human in the Loop para comunicações sensíveis ou de maior risco |
+| Workflow construído | Arquivo JSON disponível em `workflow/` |
+| README.md | Documentação do problema, solução, ferramentas, fluxo, prompts e uso |
+| Evidências funcionando | A serem adicionadas após captura final dos testes |
+| Link da solução | Execução local; workflow compartilhado no repositório |
+
+## Pendências para a entrega acadêmica
+
+O protótipo e a documentação técnica estão concluídos. Para finalizar a entrega da disciplina, ainda faltam itens externos ao funcionamento do workflow:
+
+- adicionar as evidências visuais finais ao repositório;
+- preparar e entregar o documento da parte teórica no formato solicitado pela instituição, caso seja exigido como arquivo separado;
+- gravar o vídeo pitch de até 4 minutos;
+- publicar o vídeo em uma plataforma acessível por link;
+- conferir o acesso ao link antes do envio final.
 
 ## Autor
 
