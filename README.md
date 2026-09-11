@@ -8,7 +8,7 @@ Assistente corporativo com IA Generativa e automação em **n8n + Google Gemini*
 
 O projeto utiliza uma arquitetura em múltiplas etapas: a solicitação é **classificada**, a comunicação é **redigida**, o conteúdo é **revisado** e, quando necessário, segue para **aprovação humana (Human in the Loop)** antes de ser liberado.
 
-> **Status:** MVP funcional e validado em cenários de aprovação automática, aprovação humana e rejeição humana.
+> **Status:** MVP funcional, documentado e validado em cenários de aprovação automática, aprovação humana e rejeição humana.
 
 > Projeto acadêmico desenvolvido na disciplina **Fundamentos de IA com Foco em IA Generativa**.
 
@@ -153,24 +153,50 @@ Assim, a solução busca equilibrar **agilidade, padronização e responsabilida
 O workflow foi testado ponta a ponta e validado nos seguintes comportamentos:
 
 1. **comunicação interna de baixo risco** → classificação → redação → revisão → aprovação automática;
-2. **comunicação externa ou de maior risco** → classificação → redação → revisão → Human in the Loop → aprovação humana;
-3. **comunicação externa ou de maior risco** → classificação → redação → revisão → Human in the Loop → rejeição e bloqueio.
+2. **comunicação externa de risco médio** → classificação → redação → revisão → Human in the Loop → aprovação humana;
+3. **comunicação externa de risco médio** → classificação → redação → revisão → Human in the Loop → rejeição e bloqueio.
 
 Também foram revisados os nomes dos nodes, conexões do workflow, prompts, mensagens finais e saídas de cada caminho.
 
 ## Evidências visuais
 
-As evidências de execução serão adicionadas nesta seção após a captura final dos testes.
+As evidências abaixo registram o funcionamento real do CorpAI no n8n.
 
-Está prevista a inclusão de:
+### 1. Workflow completo
 
-- visão completa do workflow no n8n;
-- formulário de entrada;
-- exemplo de solicitação de baixo risco;
-- exemplo de classificação e revisão;
-- etapa de Human in the Loop;
-- resultado de aprovação humana;
-- resultado de rejeição e bloqueio.
+Visão geral do workflow, incluindo entrada estruturada, classificação, redação, revisão, decisão de risco, aprovação automática e Human in the Loop.
+
+![Workflow completo do CorpAI](docs/evidencias/01-workflow-completo.png)
+
+### 2. Formulário de entrada
+
+Formulário utilizado para coletar nome do remetente, objetivo, público, canal, informações principais e tom desejado.
+
+![Formulário de entrada do CorpAI](docs/evidencias/02-formulario-entrada.png)
+
+### 3. Baixo risco — aprovação automática
+
+Execução de uma comunicação interna classificada como baixo risco, concluída automaticamente sem necessidade de revisão humana.
+
+![Baixo risco com aprovação automática](docs/evidencias/03-baixo-risco-aprovacao-automatica.png)
+
+### 4. Risco médio — revisão humana
+
+Execução de uma comunicação externa para cliente, classificada como risco médio e encaminhada para revisão humana.
+
+![Risco médio com revisão humana](docs/evidencias/04-risco-medio-revisao-humana.png)
+
+### 5. Human in the Loop — aprovação
+
+Caminho de revisão humana em que a comunicação foi aprovada e liberada pelo workflow.
+
+![Human in the Loop com aprovação](docs/evidencias/05-human-in-the-loop-aprovacao.png)
+
+### 6. Human in the Loop — rejeição
+
+Caminho de revisão humana em que a comunicação foi rejeitada e bloqueada pelo workflow.
+
+![Human in the Loop com rejeição](docs/evidencias/06-human-in-the-loop-rejeicao.png)
 
 ## Tecnologias e ferramentas utilizadas
 
@@ -203,7 +229,14 @@ corpai-assistente-corporativo-ia/
     ├── arquitetura.md
     ├── seguranca-lgpd.md
     ├── validacao.md
-    └── workflow.svg
+    ├── workflow.svg
+    └── evidencias/
+        ├── 01-workflow-completo.png
+        ├── 02-formulario-entrada.png
+        ├── 03-baixo-risco-aprovacao-automatica.png
+        ├── 04-risco-medio-revisao-humana.png
+        ├── 05-human-in-the-loop-aprovacao.png
+        └── 06-human-in-the-loop-rejeicao.png
 ```
 
 ## Como executar
@@ -305,14 +338,13 @@ Também evidencia a importância de combinar automação com validação, especi
 | Supervisão humana | Human in the Loop para comunicações sensíveis ou de maior risco |
 | Workflow construído | Arquivo JSON disponível em `workflow/` |
 | README.md | Documentação do problema, solução, ferramentas, fluxo, prompts e uso |
-| Evidências funcionando | A serem adicionadas após captura final dos testes |
+| Evidências funcionando | 6 capturas reais disponíveis em `docs/evidencias/` |
 | Link da solução | Execução local; workflow compartilhado no repositório |
 
 ## Pendências para a entrega acadêmica
 
-O protótipo e a documentação técnica estão concluídos. Para finalizar a entrega da disciplina, ainda faltam itens externos ao funcionamento do workflow:
+O protótipo, o workflow, o README e as evidências visuais estão concluídos. Para finalizar a entrega da disciplina, ainda faltam:
 
-- adicionar as evidências visuais finais ao repositório;
 - preparar e entregar o documento da parte teórica no formato solicitado pela instituição, caso seja exigido como arquivo separado;
 - gravar o vídeo pitch de até 4 minutos;
 - publicar o vídeo em uma plataforma acessível por link;
